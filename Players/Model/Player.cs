@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using Players.Models;
+using Player.Model;
 
-namespace Players.Model
+namespace Player.Model
 {
     /// <summary>
     /// Klasa Player opisująca piłkarza
@@ -26,9 +26,6 @@ namespace Players.Model
         //{ get { return lastName; } set { lastName = value; } }
 
         public List<Statistics> Stats { get; set; }
-
-        public int Log { get; set; }
-
         #endregion
 
         #region Konstruktory
@@ -41,7 +38,6 @@ namespace Players.Model
             Name = "";
             Url = "https://www.playgwent.com/en/profile/";
             Stats = new List<Statistics>();
-            Log = 0;
         }
 
         public Player(string name)
@@ -50,7 +46,6 @@ namespace Players.Model
             Url = "https://www.playgwent.com/en/profile/" + name;
             Stats = new List<Statistics>();
             AddLog();
-            Log = 0;
         }
 
         #endregion

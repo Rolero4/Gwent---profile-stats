@@ -3,7 +3,7 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Xml.Serialization;
 
-namespace Players.Model
+namespace Player.Model
 {
     [Serializable]
     [XmlRoot("Players")]

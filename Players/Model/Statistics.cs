@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Players.Model;
 
-namespace Players.Models
+namespace Player.Model
 {
     [Serializable]
     public class Statistics
@@ -73,9 +73,52 @@ namespace Players.Models
 
         }
 
+        //public override string ToString()
+        //{
+        //    string my_return = "";
+
+        //    my_return += "Position: " + Statistcs[0][1] + "   ";
+        //    my_return += "Mmr: " + Statistcs[0][0] + "\n";
+
+        //my_return += "Wins: " + Statistcs[1][0] + "   ";
+        //    my_return += "Losses: " + Statistcs[1][1] + "   ";
+        //    my_return += "Draws: " + Statistcs[1][2] + "\n";
+
+        //    my_return += "Winrate: " + Statistcs[2][0] + "   ";
+        //    my_return += "Lei: " + Statistcs[2][1] + "\n";
+
+//        string[] factions = new string[6] { "Skellige: ", "Scoia'tael: ", "Monsters: ", "Northern Realms: ", "Nilfgaard: ", "Syndicate: " };
+
+//            for (int i = 3; i<Statistcs.Count; i++)
+//            {
+//                my_return += factions[i - 3];
+//                //faction stats
+//                for (int j = 0; j< 3; j++)
+//                {
+//                    if (j == 0)
+//                    {
+//                        my_return += " matches: " + Statistcs[i][j];
+//                    }
+//                    else if (j == 1)
+//                    {
+//                        my_return += " wins: " + Statistcs[i][j];
+//                    }
+//                    else
+//{
+//    my_return = " winrate:" + Statistcs[i][j];
+//}
+//                }
+//                my_return += "\n";
+//            }
+        //    my_return += "Date of log: " + Date.ToString();
+        //    return my_return;
+        //}
+
         public override string ToString()
         {
             string my_return = "";
+
+            my_return += Date.ToString() + "\n";
 
             my_return += "Position: " + Statistcs[0][1] + "   ";
             my_return += "Mmr: " + Statistcs[0][0] + "\n";
@@ -87,37 +130,15 @@ namespace Players.Models
             my_return += "Winrate: " + Statistcs[2][0] + "   ";
             my_return += "Lei: " + Statistcs[2][1] + "\n";
 
-            string[] factions = new string[6] { "Skellige: ", "Scoia'tael: ", "Monsters: ", "Northern Realms: ", "Nilfgaard: ", "Syndicate: " };
+            my_return += "Monsters: " + Statistcs[3][0] + " matches, "+ Statistcs[3][1] + " wins, " + Statistcs[3][2] + "% winrate " + "\n";
+            my_return += "Nilfgaard: " + Statistcs[4][0] + " matches, " + Statistcs[4][1] + " wins, " + Statistcs[4][2] + "% winrate " + "\n";
+            my_return += "Northern Realms: " + Statistcs[5][0] + " matches, " + Statistcs[5][1] + " wins, " + Statistcs[5][2] + "% winrate " + "\n";
+            my_return += "Scoia'tael: " + Statistcs[6][0] + " matches, " + Statistcs[6][1] + " wins, " + Statistcs[6][2] + "% winrate " + "\n";
+            my_return += "Skellige: " + Statistcs[7][0] + " matches, " + Statistcs[7][1] + " wins, " + Statistcs[7][2] + "% winrate " + "\n";
+            my_return += "Syndicate: " + Statistcs[8][0] + " matches, " + Statistcs[8][1] + " wins, " + Statistcs[8][2] + "% winrate " + "\n";
 
-            for (int i = 3; i < Statistcs.Count; i++)
-            {
-                my_return += factions[i - 3];
-                //faction stats
-                for (int j = 0; j < 3; j++)
-                {
-                    if (j == 0)
-                    {
-                        my_return += " matches: " + Statistcs[i][j];
-                    }
-                    else if (j == 1)
-                    {
-                        my_return += " wins: " + Statistcs[i][j];
-                    }
-                    else
-                    {
-                        my_return = " winrate:" + Statistcs[i][j];
-                    }
-                }
-                my_return += "\n";
-            }
-            my_return += "Date of log: " + Date.ToString();
             return my_return;
         }
-
-        //public override string ToString()
-        //{
-        //    return Date.ToString() + "\n" + Statistcs[5][1];
-        //}
 
     }
 }

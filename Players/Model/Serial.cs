@@ -2,8 +2,9 @@
 using System.IO;
 using System.Xml;
 using System.Xml.Serialization;
+using Player.Model;
 
-namespace Players.Model
+namespace Player.Model
 {
     /// <summary>
     /// Pomocnicza klasa z metodami zapisu/odczytu stanu aplikacji

@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using Players.Model;
-using Players.Models;
+using Player.Model;
+using Players;
 
-namespace Players
+namespace Player.Model
 {
     /// <summary>
     /// Klasa modelu widoku udostępniąjąca widokowi
@@ -17,6 +17,11 @@ namespace Players
 
         // Opis piłkarza w postaci stringa
         private string description;
+
+        private int log=0;
+
+        private string stats_string;
+
 
         #endregion
 
@@ -48,20 +53,6 @@ namespace Players
             }
         }
 
-        public int Log
-        {
-            get
-            {
-                return mPlayer.Log;
-            }
-            set
-            {
-                mPlayer.Log = value;
-                onPropertyChanged(nameof(Log));
-            }
-        }
-
-
         public List<Statistics> Stats
         {
             get
@@ -81,6 +72,16 @@ namespace Players
             set { description = value; onPropertyChanged(nameof(Description)); }
         }
 
+        public int Log
+        {
+            get {
+                Change_Stats_string();
+                return log; }
+            set {
+                Change_Stats_string();
+                log = value; onPropertyChanged(nameof(Log)); }
+        }
+
 
         #endregion
 
@@ -89,6 +90,13 @@ namespace Players
             return mPlayer.ToString();
         }
 
+        public void Change_Stats_string()
+        {
+            if (log > 0)
+            {
+                stats_string = mPlayer.Stats[log - 1].ToString();
+            }
+        }
 
         #region Konstruktory
 
@@ -104,11 +112,6 @@ namespace Players
         /// <summary>
         /// Konstruktor z parametrami
         /// </summary>
-        /// <param name="firstName"></param>
-        /// <param name="lastName"></param>
-        /// <param name="weight"></param>
-        /// <param name="age"></param>
-        /// <param name="pathToImage"></param>
         public PlayerViewModel(string name)
         {
             mPlayer = new Player(name);

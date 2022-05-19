@@ -1,5 +1,5 @@
 ﻿using System.Collections.ObjectModel;
-using Players.Model;
+using Player.Model;
 using Players.WindowAddPlayer;
 
 namespace Players
@@ -10,8 +10,6 @@ namespace Players
 
         // Pole przechowujące stan piłkarza wyświetlanego w formularzu
         private  PlayerViewModel displayedPlayer;
-
-        private int log;
 
         // Pole przechowujące stan piłkarza wybranego z listy
         private PlayerViewModel selectedPlayer;
@@ -49,11 +47,7 @@ namespace Players
 
             // Ustawienie zaznaczonego piłkarza na pierwszego
             // na liście (o ile istnieje)
-            if (listOfPlayers.Count > 0)
-                displayedPlayer = new PlayerViewModel(
-                    listOfPlayers[0].Name);
-            else
-                displayedPlayer = new PlayerViewModel();
+            displayedPlayer = new PlayerViewModel();
 
             // Stworzenie nowego piłkarza
             newPlayer = new PlayerViewModel();
@@ -97,7 +91,6 @@ namespace Players
                     displayedPlayer.Name = value.Name;
                     displayedPlayer.Url = value.Url;
                     displayedPlayer.Stats = value.Stats;
-                    displayedPlayer.Log = value.Log;
                 }
             }
         }
@@ -116,19 +109,20 @@ namespace Players
             set { listOfPlayers = value; onPropertyChanged(nameof(ListOfPlayers)); }
         }
 
+        #region RelayCommands
         /// <summary>
         /// Właściwość publiczna udostępniająca polecenie
         /// odpowiadajće za zapisanie stanu aplikacji
         /// </summary>
-        //public RelayCommand Save
-        //{
-        //    get
-        //    {
-        //        if (saveCommand == null)
-        //            saveCommand = new RelayCommand(argument => { StateOfApllication.Save(listOfPlayers); }, argument => true);
-        //        return saveCommand;
-        //    }
-        //}
+        public RelayCommand Save
+        {
+            get
+            {
+                if (saveCommand == null)
+                    saveCommand = new RelayCommand(argument => { Serial.Save(listOfPlayers); }, argument => true);
+                return saveCommand;
+            }
+        }
 
         /// <summary>
         /// Właściwość publiczna udostępniająca polecenie 
@@ -162,12 +156,14 @@ namespace Players
                             selectedPlayer.Url = displayedPlayer.Url;
                             selectedPlayer.Stats = displayedPlayer.Stats;
                             selectedPlayer.Description = selectedPlayer.ToString();
-                            selectedPlayer.Log = displayedPlayer.Log;
                         }
                     }, argument => true);
                 return modifyPlayerCommand;
             }
         }
+
+
+
 
 
         /// <summary>
@@ -205,7 +201,7 @@ namespace Players
                 return addPlayerCommand;
             }
         }
-
+        #endregion
         #endregion
     }
 }
