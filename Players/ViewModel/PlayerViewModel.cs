@@ -48,16 +48,16 @@ namespace Players
             }
         }
 
-        public int Logs
+        public int Log
         {
             get
             {
-                return mPlayer.Logs;
+                return mPlayer.Log;
             }
             set
             {
-                mPlayer.Logs = value;
-                onPropertyChanged(nameof(Logs));
+                mPlayer.Log = value;
+                onPropertyChanged(nameof(Log));
             }
         }
 

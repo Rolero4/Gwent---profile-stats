@@ -47,7 +47,7 @@
             <TextBlock Text="Logs: " Grid.Row="1" Grid.Column="0" Margin="5"/>
 
             <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
-                <Slider Minimum="1" Maximum="{Binding Logs}" TickFrequency="1" IsSnapToTickEnabled="True" Value="{Binding Log, Mode=TwoWay}"
+                <Slider Minimum="1" Maximum="{Binding Stats.Count}" TickFrequency="1" IsSnapToTickEnabled="True" Value="{Binding Log, Mode=TwoWay}"
                         Margin="5" HorizontalAlignment="Stretch" x:Name="sliderlog" Width="140"/>
                 <TextBlock Text="{Binding ElementName=sliderLog, Path=Value, StringFormat={}{0} log}"  Margin="5"/>
             </StackPanel>

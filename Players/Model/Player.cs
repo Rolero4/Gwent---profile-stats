@@ -27,7 +27,7 @@ namespace Players.Model
 
         public List<Statistics> Stats { get; set; }
 
-        public int Logs { get; set; }
+        public int Log { get; set; }
 
         #endregion
 
@@ -41,7 +41,7 @@ namespace Players.Model
             Name = "";
             Url = "https://www.playgwent.com/en/profile/";
             Stats = new List<Statistics>();
-            Logs = 0;
+            Log = 0;
         }
 
         public Player(string name)
@@ -50,7 +50,7 @@ namespace Players.Model
             Url = "https://www.playgwent.com/en/profile/" + name;
             Stats = new List<Statistics>();
             AddLog();
-            Logs = 1;
+            Log = 0;
         }
 
         #endregion
@@ -59,7 +59,6 @@ namespace Players.Model
         {
             var stats_object = new Statistics(Url);
             Stats.Add(stats_object);
-            Logs++;
         }
 
 
@@ -70,7 +69,7 @@ namespace Players.Model
         /// <returns></returns>
         public override string ToString()
         {
-            return Name + " had " + Logs.ToString() + " log(s) ";
+            return Name + " had " + Stats.Count + " log(s) ";
         }
 
 
@@ -86,16 +85,16 @@ namespace Players.Model
             return str;
         }
 
-        public string ToString(int x)
-        {
-            if( x > Logs-1){
-                return Stats[Logs-1].ToString();
+        //public string ToString(int x)
+        //{
+        //    if( x > Logs-1){
+        //        return Stats[Logs-1].ToString();
 
-            }
-            else
-            {
-                return Stats[x].ToString();
-            }
-        }
+        //    }
+        //    else
+        //    {
+        //        return Stats[x].ToString();
+        //    }
+        //}
     }
 }

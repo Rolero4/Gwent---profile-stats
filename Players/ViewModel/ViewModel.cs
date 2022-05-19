@@ -11,6 +11,8 @@ namespace Players
         // Pole przechowujące stan piłkarza wyświetlanego w formularzu
         private  PlayerViewModel displayedPlayer;
 
+        private int log;
+
         // Pole przechowujące stan piłkarza wybranego z listy
         private PlayerViewModel selectedPlayer;
 
@@ -95,7 +97,7 @@ namespace Players
                     displayedPlayer.Name = value.Name;
                     displayedPlayer.Url = value.Url;
                     displayedPlayer.Stats = value.Stats;
-                    displayedPlayer.Logs = value.Logs;
+                    displayedPlayer.Log = value.Log;
                 }
             }
         }
@@ -160,7 +162,7 @@ namespace Players
                             selectedPlayer.Url = displayedPlayer.Url;
                             selectedPlayer.Stats = displayedPlayer.Stats;
                             selectedPlayer.Description = selectedPlayer.ToString();
-                            selectedPlayer.Logs = displayedPlayer.Logs;
+                            selectedPlayer.Log = displayedPlayer.Log;
                         }
                     }, argument => true);
                 return modifyPlayerCommand;
