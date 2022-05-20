@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Player.Model;
+using System.Collections.ObjectModel;
 using Players;
 
 namespace Player.Model
@@ -18,10 +18,7 @@ namespace Player.Model
         // Opis piłkarza w postaci stringa
         private string description;
 
-        private int log=0;
-
-        private string stats_string;
-
+        //private int log=0;
 
         #endregion
 
@@ -53,7 +50,7 @@ namespace Player.Model
             }
         }
 
-        public List<Statistics> Stats
+        public ObservableCollection<Statistics> Stats
         {
             get
             {
@@ -72,15 +69,13 @@ namespace Player.Model
             set { description = value; onPropertyChanged(nameof(Description)); }
         }
 
-        public int Log
-        {
-            get {
-                Change_Stats_string();
-                return log; }
-            set {
-                Change_Stats_string();
-                log = value; onPropertyChanged(nameof(Log)); }
-        }
+        //public int Log
+        //{
+        //    get {
+        //        return log; }
+        //    set {
+        //        log = value; onPropertyChanged(nameof(Log)); }
+        //}
 
 
         #endregion
@@ -90,13 +85,14 @@ namespace Player.Model
             return mPlayer.ToString();
         }
 
-        public void Change_Stats_string()
+        public void AddLog()
         {
-            if (log > 0)
-            {
-                stats_string = mPlayer.Stats[log - 1].ToString();
-            }
+            var s = new Statistics(mPlayer.Url);
+            mPlayer = new Player(mPlayer, s);
+            Description = this.ToString();
         }
+
+
 
         #region Konstruktory
 

@@ -14,6 +14,12 @@ namespace Players
         // Pole przechowujące stan piłkarza wybranego z listy
         private PlayerViewModel selectedPlayer;
 
+        //private LogViewModel displayedLog;
+
+        //private LogViewModel selectedLog;
+
+
+
         // Pole przechowujące stan nowego piłkarza
         private  PlayerViewModel newPlayer;
 
@@ -31,6 +37,7 @@ namespace Players
 
         // Polecenie dodania piłkarza do kolekcji
         private RelayCommand addPlayerCommand;
+        private RelayCommand addLogCommand;
 
         #endregion
 
@@ -65,6 +72,7 @@ namespace Players
             get { return displayedPlayer; }
         }
 
+
         /// <summary>
         /// Własność zwracająca referencję do nowo tworzonego piłkarza
         /// </summary>
@@ -94,6 +102,26 @@ namespace Players
                 }
             }
         }
+
+        //public LogViewModel SelectedLog
+        //{
+        //    get { return selectedLog; }
+        //    set
+        //    {
+        //        if (value != null)
+        //        {
+        //            // Kopiujemy referencję wybranego piłkarza z listy do pola selectedPlayer
+        //            selectedLog = value;
+
+        //            // Kopiujemy stan zaznaczonego piłkarza (tylko stan, bez referencji)
+        //            // do pola displayedPlayer
+        //            displayedLog.Url = value.Url;
+        //            displayedLog.Description = value.Description;
+        //            displayedLog.Date = value.Date;
+        //        }
+        //    }
+        //}
+
 
         /// <summary>
         /// Własność zwracająca zakres lat piłkarzy
@@ -201,6 +229,16 @@ namespace Players
                 return addPlayerCommand;
             }
         }
+        public RelayCommand AddLog
+        {
+            get
+            {
+                if (addLogCommand == null)
+                    addLogCommand = new RelayCommand(argument => { selectedPlayer.AddLog(); }, argument => true);
+                return addLogCommand;
+            }
+        }
+
         #endregion
         #endregion
     }

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using Player.Model;
 
 namespace Player.Model
@@ -25,7 +26,7 @@ namespace Player.Model
         public string Url { get; set; }
         //{ get { return lastName; } set { lastName = value; } }
 
-        public List<Statistics> Stats { get; set; }
+        public ObservableCollection<Statistics> Stats { get; set; }
         #endregion
 
         #region Konstruktory
@@ -37,16 +38,25 @@ namespace Player.Model
         {
             Name = "";
             Url = "https://www.playgwent.com/en/profile/";
-            Stats = new List<Statistics>();
+            Stats = new ObservableCollection<Statistics>();
         }
 
         public Player(string name)
         {
             Name = name;
             Url = "https://www.playgwent.com/en/profile/" + name;
-            Stats = new List<Statistics>();
+            Stats = new ObservableCollection<Statistics>();
             AddLog();
         }
+
+        public Player(Player player, Statistics stats)
+        {
+            Name = player.Name;
+            Url = player.Url;
+            Stats = player.Stats;
+            Stats.Add(stats);
+        }
+
 
         #endregion
 
