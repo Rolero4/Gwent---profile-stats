@@ -23,53 +23,64 @@ namespace Player.Model
             //gettings stats from method
             Statistcs = new List<string[]>();
             var stats_to_edit = Scrapper.GetStats(url);
-            //mmr, position then global stats of wins/losses/draws in current season
-            string[] mmr_position = new string[2] { stats_to_edit[15], stats_to_edit[16] };
-            Statistcs.Add(mmr_position);
-            string[] matches_stats = new string[3] { stats_to_edit[6], stats_to_edit[7], stats_to_edit[8], };
-            Statistcs.Add(matches_stats);
-
-            double wr = 0.0;
-            if ((double.Parse(stats_to_edit[6]) + double.Parse(stats_to_edit[7]) + double.Parse(stats_to_edit[8])) != 0)
+            if (stats_to_edit.Contains("error"))
             {
-                wr = Math.Round((double.Parse(stats_to_edit[6]) * 100) / (double.Parse(stats_to_edit[6]) + double.Parse(stats_to_edit[7]) + double.Parse(stats_to_edit[8])), 2);
+                string[] statistcs = new string[1] { "error" };
+                Statistcs.Add(statistcs);
+                var src = DateTime.Now;
+                var hm = new DateTime(src.Year, src.Month, src.Day, src.Hour, src.Minute, src.Second);
+                Date = hm;
             }
-            //wr and lei
-            string[] wr_lei = new string[2] { wr.ToString() + "%", "Na" };
-            Statistcs.Add(wr_lei);
-
-            //factions matches, wins and wr
-            for (int i = 0; i < 6; i++)
+            else
             {
-                string[] faction = new string[3] { stats_to_edit[i], stats_to_edit[i + 9], "0%" };
-                if (faction[0] != "0")
+                //mmr, position then global stats of wins/losses/draws in current season
+                string[] mmr_position = new string[2] { stats_to_edit[15], stats_to_edit[16] };
+                Statistcs.Add(mmr_position);
+                string[] matches_stats = new string[3] { stats_to_edit[6], stats_to_edit[7], stats_to_edit[8], };
+                Statistcs.Add(matches_stats);
+
+                double wr = 0.0;
+                if ((double.Parse(stats_to_edit[6]) + double.Parse(stats_to_edit[7]) + double.Parse(stats_to_edit[8])) != 0)
                 {
-                    string faction_wr = Math.Round((double.Parse(faction[1]) * 100 / double.Parse(faction[0])), 2).ToString() + "%";
-                    faction[2] = faction_wr;
+                    wr = Math.Round((double.Parse(stats_to_edit[6]) * 100) / (double.Parse(stats_to_edit[6]) + double.Parse(stats_to_edit[7]) + double.Parse(stats_to_edit[8])), 2);
                 }
-                Statistcs.Add(faction);
-            }
+                //wr and lei
+                string[] wr_lei = new string[2] { wr.ToString() + "%", "Na" };
+                Statistcs.Add(wr_lei);
 
-            // real lei(all factions)
-            int counter = 0;
-            for (int i = 3; i < Statistcs.Count; i++)
-            {
-                if (int.Parse(Statistcs[i][0]) >= 25)
+                //factions matches, wins and wr
+                for (int i = 0; i < 6; i++)
                 {
-                    counter++;
+                    string[] faction = new string[3] { stats_to_edit[i], stats_to_edit[i + 9], "0%" };
+                    if (faction[0] != "0")
+                    {
+                        string faction_wr = Math.Round((double.Parse(faction[1]) * 100 / double.Parse(faction[0])), 2).ToString() + "%";
+                        faction[2] = faction_wr;
+                    }
+                    Statistcs.Add(faction);
                 }
-            }
-            if (counter >= 4)
-            {
-                string lei = Math.Round((double.Parse(Statistcs[0][0]) - 9600) / Math.Sqrt(double.Parse(stats_to_edit[6]) + double.Parse(stats_to_edit[7]) + double.Parse(stats_to_edit[8])), 2).ToString();
-                Statistcs[2][1] = lei;
-            }
 
-            //date of log
-            var src = DateTime.Now;
-            var hm = new DateTime(src.Year, src.Month, src.Day, src.Hour, src.Minute, 0);
+                // real lei(all factions)
+                int counter = 0;
+                for (int i = 3; i < Statistcs.Count; i++)
+                {
+                    if (int.Parse(Statistcs[i][0]) >= 25)
+                    {
+                        counter++;
+                    }
+                }
+                if (counter >= 4)
+                {
+                    string lei = Math.Round((double.Parse(Statistcs[0][0]) - 9600) / Math.Sqrt(double.Parse(stats_to_edit[6]) + double.Parse(stats_to_edit[7]) + double.Parse(stats_to_edit[8])), 2).ToString();
+                    Statistcs[2][1] = lei;
+                }
 
-            Date = hm;
+                //date of log
+                var src = DateTime.Now;
+                var hm = new DateTime(src.Year, src.Month, src.Day, src.Hour, src.Minute, src.Second);
+
+                Date = hm;
+            }
 
         }
 

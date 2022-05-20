@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using Players;
 
 namespace Player.Model
@@ -18,7 +17,6 @@ namespace Player.Model
         // Opis piłkarza w postaci stringa
         private string description;
 
-        //private int log=0;
 
         #endregion
 
@@ -69,17 +67,9 @@ namespace Player.Model
             set { description = value; onPropertyChanged(nameof(Description)); }
         }
 
-        //public int Log
-        //{
-        //    get {
-        //        return log; }
-        //    set {
-        //        log = value; onPropertyChanged(nameof(Log)); }
-        //}
-
-
         #endregion
 
+        #region Metody
         public override string ToString()
         {
             return mPlayer.ToString();
@@ -101,7 +91,7 @@ namespace Player.Model
             }
         }
 
-
+        #endregion
 
         #region Konstruktory
 

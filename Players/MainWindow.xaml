@@ -8,7 +8,8 @@
         xmlns:tbep="clr-namespace:Players.MyOwnTextBox"
         xmlns:converterNamespace="clr-namespace:Players.BooleanAndConverter" d:DataContext="{d:DesignInstance Type=local:ViewModel}"
         mc:Ignorable="d"
-        Title="Gwenters" Height="700" Width="1000">
+        Title="Gwenters" Height="780" Width="1000"
+        ResizeMode="NoResize">
 
     <Window.Background>
         <LinearGradientBrush  StartPoint="0.5,0.9" EndPoint="0.7,0.2"  >
@@ -37,10 +38,10 @@
             <Setter Property="Background" Value="#fff"/>
             <Setter Property="Foreground" Value="#000"/>
             <Setter Property="BorderBrush" Value="Transparent"/>
-            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="FontSize" Value="25"/>
             <Setter Property="FontFamily" Value="Gwent"/>
             <Setter Property="Width" Value="320"/>
-            <Setter Property="Height" Value="600"/>
+            <Setter Property="Height" Value="700"/>
             <Setter Property="HorizontalAlignment" Value="Center"/>
         </Style>
 
@@ -60,7 +61,7 @@
             <Setter Property="Foreground" Value="#000"/>
             <Setter Property="FontSize" Value="30"/>
             <Setter Property="FontFamily" Value="Gwent"/>
-            <Setter Property="TextAlignment" Value="Center"/>
+            <Setter Property="TextAlignment" Value="Left"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="HorizontalAlignment" Value="Center"/>
             <Setter Property="TextWrapping" Value="WrapWithOverflow"/>
@@ -97,46 +98,24 @@
         <Grid Grid.Row="0" Grid.Column="0" x:Name="gridInfoPlayer" DataContext="{Binding DisplayedPlayer}">
 
             <Grid.RowDefinitions>
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition Height="2*"/>
+                <RowDefinition Height="1.5*"/>
+                <RowDefinition Height="7.5*"/>
+                <RowDefinition Height="3*"/>
 
             </Grid.RowDefinitions>
+            <TextBlock Text="{Binding Name, StringFormat=Nickname: {0},Mode=TwoWay}" Grid.Row="0" HorizontalAlignment="Stretch"
+                        Style="{StaticResource textblock}" Margin="10,28,10,0" x:Name="nameTB" VerticalAlignment="Top"/>
+            <TextBlock Text="{Binding Stats.Count, StringFormat=Logs: {0}}" Grid.Row="0" HorizontalAlignment="Stretch"
+                        Style="{StaticResource textblock}" Margin="10,28,10,0" x:Name="logsTB" VerticalAlignment="Bottom"/>
 
-            <TextBlock Text="Nickname: " Grid.Row="0" Grid.ColumnSpan="2" Grid.Column="0" 
-                       Margin="10,28,0,0" Style="{StaticResource textblock}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-            <TextBlock Text="{Binding Name, Mode=TwoWay}" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch"
-                        Style="{StaticResource textblock}" Margin="43,28,0,0" x:Name="firstNameTbwep" VerticalAlignment="Top"/>
-
-            <!--<TextBlock Text="Logs: " Grid.Row="1" Grid.Column="0" Margin="5"/>
-
-            <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
-                <Slider Minimum="1" Maximum="{Binding Stats.Count}" TickFrequency="1" IsSnapToTickEnabled="True" Value="{Binding Log, Mode=TwoWay}"
-                        Margin="5" HorizontalAlignment="Stretch" x:Name="sliderLog" Width="140"/>
-                <TextBlock Text="{Binding ElementName=sliderLog, Path=Value, StringFormat={}{0} log}"  Margin="5"/>
-            </StackPanel>-->
-            <!--<TextBlock Text="{Binding Log}" Grid.Row="2" Grid.Column="0" Margin="5"/>-->
-
-            <ListView Grid.RowSpan="7" ItemsSource="{Binding Stats}"
-                 Margin="0,61,0,25" Height="Auto" x:Name="StatsLB" Style="{StaticResource listview}" Width="650">
-                <!--<ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding Description}"/>
-                        </StackPanel>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>-->
-            </ListView>
+            <!--Binding Stats[0].Statistcs[0] działa!-->
+            <ListView Grid.Row="1" ItemsSource="{Binding Stats}"
+                 Margin="0,10,0,25" Height="Auto" x:Name="StatsLB" Style="{StaticResource listview}" Width="650"/>
 
 
 
 
-            <StackPanel Grid.Row="6" Orientation="Vertical" Margin="0,56,0,8" Grid.RowSpan="2">
+            <StackPanel Grid.Row="2" Orientation="Vertical" Margin="0,-20,0,0">
                 <Button Content="Add Player" Margin="5" Style="{StaticResource button}"
                         Command="{Binding Path=DataContext.AddPlayer, RelativeSource={RelativeSource AncestorType=Window}}"/>
                 <Button Content="Delete Player" Margin="5" Style="{StaticResource button}"
@@ -149,12 +128,12 @@
             </StackPanel>
         </Grid>
 
-        <ListBox Grid.Row="0" Grid.Column="1" ItemsSource="{Binding ListOfPlayers}" SelectedItem="{Binding SelectedPlayer}"
+        <ListBox Grid.Row="0" Grid.RowSpan="3" Grid.Column="1" ItemsSource="{Binding ListOfPlayers}" SelectedItem="{Binding SelectedPlayer}"
                  Margin="5" Style="{StaticResource listbox}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding Description}"/>
+                        <TextBlock Text="{Binding Name}"/>
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>

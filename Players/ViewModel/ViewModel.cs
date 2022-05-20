@@ -9,25 +9,19 @@ namespace Players
         #region Prywatne pola
 
         // Pole przechowujące stan piłkarza wyświetlanego w formularzu
-        private  PlayerViewModel displayedPlayer;
+        private PlayerViewModel displayedPlayer;
 
         // Pole przechowujące stan piłkarza wybranego z listy
         private PlayerViewModel selectedPlayer;
 
-        //private LogViewModel displayedLog;
-
-        //private LogViewModel selectedLog;
-
-
-
         // Pole przechowujące stan nowego piłkarza
-        private  PlayerViewModel newPlayer;
+        private PlayerViewModel newPlayer;
 
         // Lista piłkarzy
         private ObservableCollection<PlayerViewModel> listOfPlayers;
 
         // Polecenie zapisania stanu aplikacji
-        private  RelayCommand saveCommand;
+        private RelayCommand saveCommand;
 
         // Polecenie usunięcia piłkarza z kolekcji
         private RelayCommand deletePlayerCommand;
@@ -37,7 +31,11 @@ namespace Players
 
         // Polecenie dodania piłkarza do kolekcji
         private RelayCommand addPlayerCommand;
+
+        //dodanie loga do kolekcji
         private RelayCommand addLogCommand;
+
+        //usunięcie ostatniego logu
         private RelayCommand deleteLastLogCommand;
 
         #endregion
@@ -50,11 +48,9 @@ namespace Players
         public ViewModel()
         {
             // Załadowanie listy piłkarzy z pliku
-
             listOfPlayers = Serial.Load();
 
-            // Ustawienie zaznaczonego piłkarza na pierwszego
-            // na liście (o ile istnieje)
+            //wyswietlony zawodnik to pusty 
             displayedPlayer = new PlayerViewModel();
 
             // Stworzenie nowego piłkarza
@@ -104,31 +100,6 @@ namespace Players
             }
         }
 
-        //public LogViewModel SelectedLog
-        //{
-        //    get { return selectedLog; }
-        //    set
-        //    {
-        //        if (value != null)
-        //        {
-        //            // Kopiujemy referencję wybranego piłkarza z listy do pola selectedPlayer
-        //            selectedLog = value;
-
-        //            // Kopiujemy stan zaznaczonego piłkarza (tylko stan, bez referencji)
-        //            // do pola displayedPlayer
-        //            displayedLog.Url = value.Url;
-        //            displayedLog.Description = value.Description;
-        //            displayedLog.Date = value.Date;
-        //        }
-        //    }
-        //}
-
-
-        /// <summary>
-        /// Własność zwracająca zakres lat piłkarzy
-        /// </summary>
-
-
         /// <summary>
         /// Własność zwracająca listę piłkarzy
         /// </summary>
@@ -137,11 +108,11 @@ namespace Players
             get { return listOfPlayers; }
             set { listOfPlayers = value; onPropertyChanged(nameof(ListOfPlayers)); }
         }
+        #endregion 
 
         #region RelayCommands
         /// <summary>
-        /// Właściwość publiczna udostępniająca polecenie
-        /// odpowiadajće za zapisanie stanu aplikacji
+        /// Właściwość publiczna udostępniająca polecenie zapisania kolekcji
         /// </summary>
         public RelayCommand Save
         {
@@ -154,50 +125,20 @@ namespace Players
         }
 
         /// <summary>
-        /// Właściwość publiczna udostępniająca polecenie 
-        /// odpowiadajće za usunięcie piłkarza z kolekcji
+        /// Właściwość publiczna udostępniająca polecenie usunięcia piłkarza z kolekcji
         /// </summary>
         public RelayCommand DeletePlayer
         {
             get
             {
                 if (deletePlayerCommand == null)
-                    deletePlayerCommand = new RelayCommand(argument => { listOfPlayers.Remove(selectedPlayer); }, argument => true);
+                    deletePlayerCommand = new RelayCommand(argument => { listOfPlayers.Remove(selectedPlayer); displayedPlayer.Stats = null; displayedPlayer.Name = null; }, argument => true);
                 return deletePlayerCommand;
             }
         }
 
         /// <summary>
-        /// Własność publiczna udostępniąjąca polecenie 
-        /// zmodyfikowania piłkarza z kolekcji
-        /// </summary>
-        public RelayCommand ModifyPlayer
-        {
-            get
-            {
-                if (modifyPlayerCommand == null)
-                    modifyPlayerCommand = new RelayCommand(argument =>
-                    {
-                        if (selectedPlayer != null & !string.IsNullOrEmpty(displayedPlayer.Name) &
-                            !string.IsNullOrEmpty(displayedPlayer.Url))
-                        {
-                            selectedPlayer.Name = displayedPlayer.Name;
-                            selectedPlayer.Url = displayedPlayer.Url;
-                            selectedPlayer.Stats = displayedPlayer.Stats;
-                            selectedPlayer.Description = selectedPlayer.ToString();
-                        }
-                    }, argument => true);
-                return modifyPlayerCommand;
-            }
-        }
-
-
-
-
-
-        /// <summary>
-        /// Własność publiczna udostępniąjąca polecenie 
-        /// dodania piłkarza z kolekcji
+        /// Własność publiczna udostępniąjąca polecenie dodania piłkarza z kolekcji
         /// </summary>
         public RelayCommand AddPlayer
         {
@@ -217,49 +158,61 @@ namespace Players
 
                         // We właściwości DialogResult przekazywana jest informacja
                         // czy dodajemy nowego piłkarza, czy też nie
-                        if (window.DialogResult == true) 
+                        if (window.DialogResult == true)
                         {
                             if (newPlayer != null)
                             {
                                 // Dodaj piłkarza
-                                listOfPlayers.Add(new PlayerViewModel(
-                                    newPlayer.Name));
+
+                                listOfPlayers.Add(new PlayerViewModel(newPlayer.Name));
+                                if (listOfPlayers[listOfPlayers.Count - 1].Name == null)
+                                {
+                                    displayedPlayer.Name = "Wrong Nickname";
+                                    displayedPlayer.Stats = null;
+                                    listOfPlayers.RemoveAt(listOfPlayers.Count - 1);
+                                }
                             }
-                        }   
+                        }
                     }, argument => true);
                 return addPlayerCommand;
             }
         }
+
+        /// <summary>
+        /// Własność publiczna udostępniąjąca polecenie dodanie nowego logu
+        /// </summary>
         public RelayCommand AddLog
         {
             get
             {
                 if (addLogCommand == null)
-                    addLogCommand = new RelayCommand(argument => 
+                    addLogCommand = new RelayCommand(argument =>
                     {
                         if (SelectedPlayer != null)
                             SelectedPlayer.AddLog();
-                    }, 
+                    },
                     argument => true);
                 return addLogCommand;
             }
         }
 
+        /// <summary>
+        /// Własność publiczna udostępniąjąca polecenie usunięcia ostatniego logu
+        /// </summary>
         public RelayCommand DeleteLastLog
         {
             get
             {
                 if (deleteLastLogCommand == null)
-                    deleteLastLogCommand = new RelayCommand(argument => 
-                    { 
-                        if(SelectedPlayer != null)
-                            SelectedPlayer.DeleteLastLog(); 
-                    }, 
+                    deleteLastLogCommand = new RelayCommand(argument =>
+                    {
+                        if (SelectedPlayer != null)
+                            SelectedPlayer.DeleteLastLog();
+                    },
                     argument => true);
                 return deleteLastLogCommand;
             }
         }
-        #endregion
         #endregion
     }
 }

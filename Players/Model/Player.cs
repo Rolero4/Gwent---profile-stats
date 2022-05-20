@@ -43,10 +43,13 @@ namespace Player.Model
 
         public Player(string name)
         {
-            Name = name;
-            Url = "https://www.playgwent.com/en/profile/" + name;
-            Stats = new ObservableCollection<Statistics>();
-            AddLog();
+            if (name != null)
+            {
+                Name = name;
+                Url = "https://www.playgwent.com/en/profile/" + name;
+                Stats = new ObservableCollection<Statistics>();
+                AddLog();
+            }
         }
 
         public Player(Player player, Statistics stats)
@@ -72,7 +75,14 @@ namespace Player.Model
         public void AddLog()
         {
             var stats_object = new Statistics(Url);
-            Stats.Add(stats_object);
+            if (stats_object.Statistcs[0][0] == "error")
+            {
+                this.Name = null;
+            }
+            else
+            {
+                Stats.Add(stats_object);
+            }
         }
 
 
