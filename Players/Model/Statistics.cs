@@ -130,12 +130,12 @@ namespace Player.Model
             my_return += "Winrate: " + Statistcs[2][0] + "   ";
             my_return += "Lei: " + Statistcs[2][1] + "\n";
 
-            my_return += "Monsters: " + Statistcs[3][0] + " matches, "+ Statistcs[3][1] + " wins, " + Statistcs[3][2] + "% winrate " + "\n";
-            my_return += "Nilfgaard: " + Statistcs[4][0] + " matches, " + Statistcs[4][1] + " wins, " + Statistcs[4][2] + "% winrate " + "\n";
-            my_return += "Northern Realms: " + Statistcs[5][0] + " matches, " + Statistcs[5][1] + " wins, " + Statistcs[5][2] + "% winrate " + "\n";
-            my_return += "Scoia'tael: " + Statistcs[6][0] + " matches, " + Statistcs[6][1] + " wins, " + Statistcs[6][2] + "% winrate " + "\n";
-            my_return += "Skellige: " + Statistcs[7][0] + " matches, " + Statistcs[7][1] + " wins, " + Statistcs[7][2] + "% winrate " + "\n";
-            my_return += "Syndicate: " + Statistcs[8][0] + " matches, " + Statistcs[8][1] + " wins, " + Statistcs[8][2] + "% winrate " + "\n";
+            my_return += "Monsters: " + Statistcs[3][0] + " matches, "+ Statistcs[3][1] + " wins, " + Statistcs[3][2] + " winrate " + "\n";
+            my_return += "Nilfgaard: " + Statistcs[4][0] + " matches, " + Statistcs[4][1] + " wins, " + Statistcs[4][2] + " winrate " + "\n";
+            my_return += "Northern Realms: " + Statistcs[5][0] + " matches, " + Statistcs[5][1] + " wins, " + Statistcs[5][2] + " winrate " + "\n";
+            my_return += "Scoia'tael: " + Statistcs[6][0] + " matches, " + Statistcs[6][1] + " wins, " + Statistcs[6][2] + " winrate " + "\n";
+            my_return += "Skellige: " + Statistcs[7][0] + " matches, " + Statistcs[7][1] + " wins, " + Statistcs[7][2] + " winrate " + "\n";
+            my_return += "Syndicate: " + Statistcs[8][0] + " matches, " + Statistcs[8][1] + " wins, " + Statistcs[8][2] + " winrate " + "\n";
 
             return my_return;
         }

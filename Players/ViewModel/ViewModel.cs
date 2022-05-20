@@ -38,6 +38,7 @@ namespace Players
         // Polecenie dodania piłkarza do kolekcji
         private RelayCommand addPlayerCommand;
         private RelayCommand addLogCommand;
+        private RelayCommand deleteLastLogCommand;
 
         #endregion
 
@@ -234,11 +235,30 @@ namespace Players
             get
             {
                 if (addLogCommand == null)
-                    addLogCommand = new RelayCommand(argument => { selectedPlayer.AddLog(); }, argument => true);
+                    addLogCommand = new RelayCommand(argument => 
+                    {
+                        if (SelectedPlayer != null)
+                            SelectedPlayer.AddLog();
+                    }, 
+                    argument => true);
                 return addLogCommand;
             }
         }
 
+        public RelayCommand DeleteLastLog
+        {
+            get
+            {
+                if (deleteLastLogCommand == null)
+                    deleteLastLogCommand = new RelayCommand(argument => 
+                    { 
+                        if(SelectedPlayer != null)
+                            SelectedPlayer.DeleteLastLog(); 
+                    }, 
+                    argument => true);
+                return deleteLastLogCommand;
+            }
+        }
         #endregion
         #endregion
     }

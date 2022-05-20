@@ -18,6 +18,7 @@ namespace Players.Model
             List<string> stats = WebScrapper(url);
             stats.AddRange(Txt_scrapper(url));
             return stats;
+
         }
 
         //current stats such a position, mmr, wins

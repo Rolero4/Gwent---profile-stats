@@ -9,14 +9,85 @@
         xmlns:converterNamespace="clr-namespace:Players.BooleanAndConverter" d:DataContext="{d:DesignInstance Type=local:ViewModel}"
         mc:Ignorable="d"
         Title="Gwenters" Height="700" Width="1000">
+
+    <Window.Background>
+        <LinearGradientBrush  StartPoint="0.5,0.9" EndPoint="0.7,0.2"  >
+            <GradientStop Color="DarkOliveGreen" />
+            <GradientStop Color="OliveDrab" Offset="1"/>
+        </LinearGradientBrush>
+    </Window.Background>
+
+
     <Window.Resources>
         <converterNamespace:BooleanAndConverter x:Key="booleanAndConverter" />
+
+        <Style x:Key="button" TargetType="Button">
+            <Setter Property="Background" Value="#fff"/>
+            <Setter Property="Foreground" Value="#000"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="Margin" Value="0,0,0,0"/>
+            <Setter Property="FontSize" Value="30"/>
+            <Setter Property="FontFamily" Value="Gwent"/>
+            <Setter Property="Width" Value="250"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+        </Style>
+
+        <Style x:Key="listbox" TargetType="ListBox">
+            <Setter Property="Background" Value="#fff"/>
+            <Setter Property="Foreground" Value="#000"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="FontFamily" Value="Gwent"/>
+            <Setter Property="Width" Value="320"/>
+            <Setter Property="Height" Value="600"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+        </Style>
+
+        <Style x:Key="listview" TargetType="ListView">
+            <Setter Property="Background" Value="#fff"/>
+            <Setter Property="Foreground" Value="#000"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="FontFamily" Value="Gwent"/>
+            <Setter Property="Width" Value="540"/>
+            <Setter Property="Height" Value="50"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+        </Style>
+
+        <Style x:Key="textblock" TargetType="TextBlock">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="#000"/>
+            <Setter Property="FontSize" Value="30"/>
+            <Setter Property="FontFamily" Value="Gwent"/>
+            <Setter Property="TextAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="TextWrapping" Value="WrapWithOverflow"/>
+        </Style>
+
+        <Style  x:Key="textbox" TargetType="TextBox">
+            <Setter Property="Background" Value="#fff"/>
+            <Setter Property="Foreground" Value="#000"/>
+            <Setter Property="FontSize" Value="40"/>
+            <Setter Property="Height" Value="50"/>
+            <Setter Property="Width" Value="350"/>
+            <Setter Property="FontFamily" Value="Gwent"/>
+            <Setter Property="TextAlignment" Value="Left"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+
+
     </Window.Resources>
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Closed">
             <i:InvokeCommandAction Command="{Binding Save}"/>
         </i:EventTrigger>
     </i:Interaction.Triggers>
+
+
+
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2*"/>
@@ -24,10 +95,7 @@
         </Grid.ColumnDefinitions>
 
         <Grid Grid.Row="0" Grid.Column="0" x:Name="gridInfoPlayer" DataContext="{Binding DisplayedPlayer}">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="5*"/>
-            </Grid.ColumnDefinitions>
+
             <Grid.RowDefinitions>
                 <RowDefinition />
                 <RowDefinition />
@@ -40,10 +108,11 @@
 
             </Grid.RowDefinitions>
 
-            <TextBlock Text="Nickname: " Grid.Row="0" Grid.Column="0" Margin="5"/>
+            <TextBlock Text="Nickname: " Grid.Row="0" Grid.ColumnSpan="2" Grid.Column="0" 
+                       Margin="10,28,0,0" Style="{StaticResource textblock}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
             <TextBlock Text="{Binding Name, Mode=TwoWay}" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch"
-                                            Margin="5" x:Name="firstNameTbwep"/>
-            
+                        Style="{StaticResource textblock}" Margin="43,28,0,0" x:Name="firstNameTbwep" VerticalAlignment="Top"/>
+
             <!--<TextBlock Text="Logs: " Grid.Row="1" Grid.Column="0" Margin="5"/>
 
             <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
@@ -53,8 +122,8 @@
             </StackPanel>-->
             <!--<TextBlock Text="{Binding Log}" Grid.Row="2" Grid.Column="0" Margin="5"/>-->
 
-            <ListView Grid.Row="1" Grid.Column="1" Grid.RowSpan="6" ItemsSource="{Binding Stats}"
-                 Margin="5" Height="360" x:Name="StatsLB">
+            <ListView Grid.RowSpan="7" ItemsSource="{Binding Stats}"
+                 Margin="0,61,0,25" Height="Auto" x:Name="StatsLB" Style="{StaticResource listview}" Width="650">
                 <!--<ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
@@ -67,27 +136,21 @@
 
 
 
-            <StackPanel Grid.Row="9" Grid.Column="1" Orientation="Vertical">
-                <Button Content="Modyfikuj" Margin="5"
-                        Command="{Binding Path=DataContext.ModifyPlayer, RelativeSource={RelativeSource AncestorType=Window}}">
-                    <Button.IsEnabled>
-                        <MultiBinding Converter="{StaticResource booleanAndConverter}">
-                        </MultiBinding>
-                    </Button.IsEnabled>
-                </Button>
-                <Button Content="Dodaj" Margin="5"
+            <StackPanel Grid.Row="6" Orientation="Vertical" Margin="0,56,0,8" Grid.RowSpan="2">
+                <Button Content="Add Player" Margin="5" Style="{StaticResource button}"
                         Command="{Binding Path=DataContext.AddPlayer, RelativeSource={RelativeSource AncestorType=Window}}"/>
-                <Button Content="Usuń" Margin="5" 
+                <Button Content="Delete Player" Margin="5" Style="{StaticResource button}"
                         Command="{Binding Path=DataContext.DeletePlayer, RelativeSource={RelativeSource AncestorType=Window}}"/>
-                <Button Content="Dodaj Log" Margin="5"
+                <Button Content="Add Log" Margin="5" Style="{StaticResource button}"
                         Command="{Binding Path=DataContext.AddLog, RelativeSource={RelativeSource AncestorType=Window}}"/>
-                
+                <Button Content="Delete Last Log" Margin="5" Style="{StaticResource button}"
+                        Command="{Binding Path=DataContext.DeleteLastLog, RelativeSource={RelativeSource AncestorType=Window}}"/>
 
             </StackPanel>
         </Grid>
 
         <ListBox Grid.Row="0" Grid.Column="1" ItemsSource="{Binding ListOfPlayers}" SelectedItem="{Binding SelectedPlayer}"
-                 Margin="5">
+                 Margin="5" Style="{StaticResource listbox}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">

@@ -6,36 +6,81 @@
         xmlns:local="clr-namespace:Players.WindowAddPlayer"
         mc:Ignorable="d"
         xmlns:tbep="clr-namespace:Players.MyOwnTextBox"
-        xmlns:converterNamespace="clr-namespace:Players.BooleanAndConverter"
-        Title="New Player" Height="100" Width="300" x:Name="addNewPlayerWindow">
-    
-    
+        xmlns:converterNamespace="clr-namespace:Players.BooleanAndConverter" xmlns:players="clr-namespace:Players" d:DataContext="{d:DesignInstance Type=players:ViewModel}"
+        Title="New Player" Height="150" Width="500" x:Name="addNewPlayerWindow">
+
+    <Window.Background>
+        <LinearGradientBrush  StartPoint="0.5,0.9" EndPoint="0.7,0.2"  >
+            <GradientStop Color="DarkOrange" />
+            <GradientStop Color="OrangeRed" Offset="1"/>
+        </LinearGradientBrush>
+    </Window.Background>
+
     <Window.Resources>
         <converterNamespace:BooleanAndConverter x:Key="booleanAndConverter" />
+
+        <Style x:Key="button" TargetType="Button">
+            <Setter Property="Background" Value="#fff"/>
+            <Setter Property="Foreground" Value="#000"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="Margin" Value="0,0,0,0"/>
+            <Setter Property="FontSize" Value="30"/>
+            <Setter Property="FontFamily" Value="Gwent"/>
+            <Setter Property="Width" Value="150"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+        </Style>
+
+        <Style x:Key="textblock" TargetType="TextBlock">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="#000"/>
+            <Setter Property="FontSize" Value="30"/>
+            <Setter Property="FontFamily" Value="Gwent"/>
+            <Setter Property="TextAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="TextWrapping" Value="WrapWithOverflow"/>
+        </Style>
+
+        <Style  x:Key="textbox" TargetType="tbep:TextBoxWithErrorProvider">
+            <Setter Property="Background" Value="#fff"/>
+            <Setter Property="Foreground" Value="#000"/>
+            <Setter Property="FontSize" Value="40"/>
+            <Setter Property="Height" Value="Auto"/>
+            <Setter Property="Width" Value="360"/>
+            <Setter Property="FontFamily" Value="Gwent"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+
+
+
+
     </Window.Resources>
     <Grid DataContext="{Binding NewPlayer}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="3*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="2*"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Text="Player:" Grid.Row="0" Grid.Column="0" Margin="5"/>
+        <TextBlock Text="Player:" Grid.Column="0" Style="{StaticResource textblock}"/>
         <tbep:TextBoxWithErrorProvider Text="{Binding Name, Mode=TwoWay}" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch"
-                                           VerticalContentAlignment="Center" Margin="5" x:Name="newPlayerNameTbwep"/>
+                                           VerticalContentAlignment="Center" Margin="5" x:Name="newPlayerNameTbwep"
+                                       Style="{StaticResource textbox}"/>
 
         <StackPanel Grid.Row="4" Grid.Column="1" Orientation="Horizontal">
-            <Button Content="Add" Margin="10" Width="50" x:Name="addButton" Click="AddButton_Click">
+            <Button Content="Add" Margin="20,0,0,0" x:Name="addButton" Click="AddButton_Click" Style="{StaticResource button}">
                 <Button.IsEnabled>
                     <MultiBinding Converter="{StaticResource booleanAndConverter}">
                         <Binding ElementName="newPlayerFirstNameTbwep" Path="IsNotEmpty"/>
                     </MultiBinding>
                 </Button.IsEnabled>
             </Button>
-            <Button Content="Cancel" Margin="10" Width="50" x:Name="cancelButton" Click="CancelButton_Click"/>
+            <Button Content="Cancel" Margin="40,0,0,0" x:Name="cancelButton" Click="CancelButton_Click"
+                     Style="{StaticResource ResourceKey=button}"/>
         </StackPanel>
     </Grid>
 </Window>

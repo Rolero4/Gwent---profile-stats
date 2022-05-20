@@ -92,6 +92,15 @@ namespace Player.Model
             Description = this.ToString();
         }
 
+        public void DeleteLastLog()
+        {
+            if (mPlayer.Stats.Count != 0)
+            {
+                mPlayer = new Player(mPlayer);
+                Description = this.ToString();
+            }
+        }
+
 
 
         #region Konstruktory

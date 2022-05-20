@@ -57,6 +57,15 @@ namespace Player.Model
             Stats.Add(stats);
         }
 
+        //Konstruktor usuwający ostatni elemnt listy
+        public Player(Player player)
+        {
+            Name = player.Name;
+            Url = player.Url;
+            Stats = player.Stats;
+            this.Stats.RemoveAt(Stats.Count - 1);
+        }
+
 
         #endregion
 
