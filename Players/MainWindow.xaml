@@ -108,7 +108,7 @@
             <TextBlock Text="{Binding Stats.Count, StringFormat=Logs: {0}}" Grid.Row="0" HorizontalAlignment="Stretch"
                         Style="{StaticResource textblock}" Margin="10,28,10,0" x:Name="logsTB" VerticalAlignment="Bottom"/>
 
-            <!--Binding Stats[0].Statistcs[0] działa!-->
+            <!--Binding Stats[0].Statistcs[0]-->
             <ListView Grid.Row="1" ItemsSource="{Binding Stats}"
                  Margin="0,10,0,25" Height="Auto" x:Name="StatsLB" Style="{StaticResource listview}" Width="650"/>
 

@@ -26,9 +26,6 @@ namespace Players
         // Polecenie usunięcia piłkarza z kolekcji
         private RelayCommand deletePlayerCommand;
 
-        // Polecenie zmodyfikowania piłkarza z kolekcji
-        private RelayCommand modifyPlayerCommand;
-
         // Polecenie dodania piłkarza do kolekcji
         private RelayCommand addPlayerCommand;
 
